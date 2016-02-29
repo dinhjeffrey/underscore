@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Searching Collections with Underscore</title>
+	<script type="text/javascript" src="./underscore.js"></script>
+	<script type="text/javascript" src="./SampleData.js"></script>
+	<script type="text/javascript">
+
+    function searchStudents(item){
+    	// return true if the studen goes to school Franklin
+    	// searchStudent(students arr) is outside of addEventListener
+    	if (item.school === "Franklin")
+    		return true;
+    }
+
+	// look upaddEventListener. it listens for "load" event
+	window.addEventListener("load", function(e){
+	  /* Test the find() function */
+      // find the first student that goes to Franklin
+      // takes in arr and 2nd parameter is a callback. Will return true or false.
+      var elem = _.find(students, searchStudents);
+
+
+      // get results from searchStudent() and put it back into container
+      var container = document.getElementById("container");
+      // use var elem
+      var student = "<p>" + elem.firstname + " " + elem.lastname + ", Grade: " + elem.grade + "</p>";
+      container.innerHTML = container.innerHTML + student; 
+
+      /* Test the findWhere() function. It is similar to find but we give it an object
+      that has properties we want to search on
+      Returns the first Thoreau student who is a junior. */ 
+      elem = _.findWhere(students, {school: "Thoreau", grade: 11});
+      var container = document.getElementById("container");
+      var student = "<p>" + elem.firstname + " " + elem.lastname + ", Grade: " + elem.grade + "</p>"
+      container.innerHTML += student;
+
+      // contain() searches a list of values for a value
+      // pluck() retrieves the value for a given property name
+      var grades = _.pluck(students, "final_score");
+      // did anyone get a perfect final?
+      if (_.contains(grades, 100)) 
+      	alert ("Found a Perfect Score!");
+	});
+	</script>
+</head>
+<body>
+<h1>Searching Collections With Underscore</h1>
+<h2>Student Information:</h2>
+<h3 id="numstudents">Number of Students: </h3>
+<div id="container">
+</div>
+</body>
+</html> 
+
